@@ -4,6 +4,7 @@ package org.rick.mysqlcrud.controller;
 import org.rick.mysqlcrud.entity.UserEntity;
 import org.rick.mysqlcrud.jpa.UserJpa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,11 @@ public class UserController {
         return userJpa.findAll();
     }
 
+    @RequestMapping(value = "/getByName/{name}", method = RequestMethod.GET)
+    public List<UserEntity> getByName(@PathVariable("name") String name){
+        return userJpa.findByName(name);
+    }
+
     /**
      * 添加或更新用户
      */
@@ -36,7 +42,7 @@ public class UserController {
     /**
      * 删除用户
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public String delete(Long id){
         if(userJpa.findById(id).isPresent()){
             userJpa.deleteById(id);

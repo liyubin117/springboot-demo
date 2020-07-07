@@ -4,8 +4,12 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     username: root
     password: passwd
+debug: false
 jpa:
   database: MySQL
   show-sql: true
   hibernate:
     naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+rest:
+  url: http://localhost:8123/user/list
+  post-url: http://localhost:8123/user/save

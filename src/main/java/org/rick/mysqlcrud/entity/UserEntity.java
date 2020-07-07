@@ -6,9 +6,10 @@ import java.io.Serializable;
 @Entity
 @Table(name="t_user")
 public class UserEntity implements Serializable {
+
+    @Column(name="t_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="t_id")
     private Long id;
 
     @Column(name="t_name")
@@ -48,7 +49,25 @@ public class UserEntity implements Serializable {
         return address;
     }
 
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
+    public UserEntity(String name, int age, String address) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public UserEntity() {}
 }
