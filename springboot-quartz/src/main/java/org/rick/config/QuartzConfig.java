@@ -20,11 +20,14 @@ public class QuartzConfig {
     //Trigger触发器
     @Bean
     public Trigger printTimeJobTrigger() {
-        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/1 * * * * ?");
+//        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/1 * * * * ?");
+        SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
+                .withIntervalInSeconds(5) //每2秒执行一次
+                .repeatForever(); //永久重复，一直执行下去
         return TriggerBuilder.newTrigger()
                 .forJob(printTimeJobDetail())//关联上述的JobDetail
                 .withIdentity("quartzTaskService")//给Trigger起个名字
-                .withSchedule(cronScheduleBuilder)
+                .withSchedule(scheduleBuilder)
                 .build();
     }
 }
